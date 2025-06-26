@@ -14,6 +14,8 @@ public class MovePlayer1 : MonoBehaviour
 
     private SpriteRenderer player1_renderer;
 
+    [SerializeField, Header("下方向の最大速度(負の値でお願いします)")] private float donw_max_speed = -10;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,8 +39,13 @@ public class MovePlayer1 : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             player1_renderer.flipY = true;
-            if (rb.linearVelocityY>-2) {
+            if (rb.linearVelocityY > donw_max_speed)
+            {
                 rb.AddForce(new Vector2(0, -2f * speedBoost), ForceMode2D.Impulse);
+            }
+            else if(donw_max_speed<0)
+            {
+                rb.linearVelocityY = donw_max_speed;
             }
         }
         else
