@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
+<<<<<<< add/object;/player1
+  - 1P
+=======
   - floor
+>>>>>>> main
   layers:
   - Default
   - TransparentFX
