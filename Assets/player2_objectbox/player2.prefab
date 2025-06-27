@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8536156271485038874
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,5 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12532c06bdbab3540ba2a153a4163600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoost: 1
-  donw_max_speed: -10
+  right_and_left_speedBoost: 1
+  junp_speedBoost: 1.5
+  can_junp_count: 2
+  right_and_left_max_speed: 20
+  donw_max_speed: -20
