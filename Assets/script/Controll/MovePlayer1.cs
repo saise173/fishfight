@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class MovePlayer1 : MonoBehaviour
 {
+    [SerializeField, Header("玉の発射位置のオブジェクト名")]public string targetObjectName = "ex";
     [SerializeField, Header("左右の移動速度倍率")] private float right_and_left_speedBoost = 1;
 
     [SerializeField, Header("上下の移動速度倍率")] private float junp_speedBoost = 1;
@@ -32,8 +35,9 @@ public class MovePlayer1 : MonoBehaviour
     }
 
     void Update()
-    {
-        Vector2 position = transform.position;
+    {   
+        GameObject targetObject = GameObject.Find(targetObjectName);
+        Vector3 position = transform.position;
         if (Input.GetKey(KeyCode.A))
         {
             if (rb.linearVelocityX > -right_and_left_max_speed)
@@ -42,6 +46,7 @@ public class MovePlayer1 : MonoBehaviour
                 //position.x -= speed * speedBoost;
             }
             player1_renderer.flipX = true;
+            //targetObject.transform.position =new Vector3(position.x-3,position.y, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -52,6 +57,7 @@ public class MovePlayer1 : MonoBehaviour
             }
             //position.x += speed * speedBoost;
             player1_renderer.flipX = false;
+            //targetObject.transform.position =new Vector3(position.x+3,position.y, 0);
         }
 
         if (Input.GetKey(KeyCode.S))

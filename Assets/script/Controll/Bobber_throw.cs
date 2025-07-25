@@ -5,7 +5,8 @@ public class Bobber_throw : MonoBehaviour
 {
     //---------------------------
     //          追加
-    Vector3 throwPoint;
+
+    private Vector3 throwPoint;
     //[SerializeField, Header("ウキの左右移動速度倍率")] private float Bobber_right_and_left_speedBoost = 1;
     //[SerializeField, Header("ウキの上下移動速度倍率")] private float Bobber_up_speedBoost = 1;
 
@@ -31,14 +32,14 @@ public class Bobber_throw : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        throwPoint = transform.Find("throw_point").localPosition;
         rb = GetComponent<Rigidbody2D>();
         player1_renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        throwPoint = transform.Find("throw_point").localPosition;
         if (Input.GetKeyDown(duplicateKey))
         {
             DuplicateObjectWithInitialVelocity();
@@ -89,7 +90,7 @@ public class Bobber_throw : MonoBehaviour
             }
             else
             {
-                Debug.LogError("複製されたオブジェクトにRigidbody2Dがアタッチされていません！速度を設定できませんでした。", duplicatedObject);
+                Debug.LogError("複製されたオブジェクトにRigidbody2Dがアタッチされていません,速度を設定できませんでした。", duplicatedObject);
             }
         }
     }
