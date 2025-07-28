@@ -39,7 +39,7 @@ public class Bobber_throw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        throwPoint = transform.Find("throw_point").localPosition;
+        throwPoint = transform.Find("throw_point_right").localPosition;
         if (Input.GetKeyDown(duplicateKey))
         {
             DuplicateObjectWithInitialVelocity();

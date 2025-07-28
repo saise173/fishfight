@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - floor
+  - player1
+  - Bobber_player1
+  - wall
   layers:
   - Default
   - TransparentFX

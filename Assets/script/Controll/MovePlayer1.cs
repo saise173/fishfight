@@ -16,7 +16,6 @@ public class MovePlayer1 : MonoBehaviour
     private float speed = 0.05f;
 
     private int isGround;
-
     private Rigidbody2D rb;
 
     private SpriteRenderer player1_renderer;

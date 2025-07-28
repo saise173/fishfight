@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6567680388693895104}
   m_Layer: 0
   m_Name: "\u7389\u30A6\u30AD"
-  m_TagString: Untagged
+  m_TagString: Bobber_player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
