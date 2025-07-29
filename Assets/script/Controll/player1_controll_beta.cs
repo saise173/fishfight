@@ -45,6 +45,8 @@ public class player1_controll_beta : MonoBehaviour
     private Vector3 right_throwPoint;
 
     private Vector3 left_throwPoint;
+
+    private BoxCollider boxCol;
     void Start()
     {
         float right_max_speed = right_and_left_max_speed;
@@ -52,6 +54,20 @@ public class player1_controll_beta : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player1_renderer = GetComponent<SpriteRenderer>();
         isGround = can_junp_count;
+        bobber_grounded bobber_grounded = GetComponent<bobber_grounded>();
+        GameObject otherGameObject = GameObject.Find("玉ウキ");
+        if (otherGameObject != null)
+        {
+            bobber_grounded otherbobber = otherGameObject.GetComponent<bobber_grounded>();
+            if (otherbobber != null)
+            {
+                Debug.Log("ScriptB (別のゲームオブジェクト): grounded = " + otherbobber.grounded);
+            }
+            else
+            {
+                Debug.LogError("OtherGameObject に ScriptA が見つかりません。");
+            }
+        }        
     }
 
     void Update()
@@ -148,13 +164,15 @@ public class player1_controll_beta : MonoBehaviour
                 GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + right_throwPoint, Quaternion.identity);
                 already_throw = true;
                 Rigidbody2D rb2d = duplicatedObject.GetComponent<Rigidbody2D>();
+                // boxCol =GetComponent<BoxCollider>();
+                // boxCol.enabled = false;                
                 if (rb2d != null && look_left == true)
                 {
                     // 3. Rigidbody2Dのvelocity（速度）を設定する
                     // これにより、複製された瞬間に指定された速度が与えられる
                     rb2d.linearVelocityX = initialVelocity.x;
                     rb2d.linearVelocityY = initialVelocity.y;
-                    Debug.Log(duplicatedObject.name + "を複製し、速度 X:" + initialVelocity.x +"    Y:"+ initialVelocity.y + " を適用しました。");
+                    Debug.Log(duplicatedObject.name + "を複製し、速度 X:" + initialVelocity.x + "    Y:" + initialVelocity.y + " を適用しました。");
                 }
                 else
                 {
@@ -166,13 +184,15 @@ public class player1_controll_beta : MonoBehaviour
                 GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + left_throwPoint, Quaternion.identity);
                 already_throw = true;
                 Rigidbody2D rb2d = duplicatedObject.GetComponent<Rigidbody2D>();
+                // boxCol =GetComponent<BoxCollider>();
+                // boxCol.enabled = false;          
                 if (rb2d != null && look_right == true)
                 {
                     // 3. Rigidbody2Dのvelocity（速度）を設定する
                     // これにより、複製された瞬間に指定された速度が与えられる
                     rb2d.linearVelocityX = -initialVelocity.x;
                     rb2d.linearVelocityY = initialVelocity.y;
-                    Debug.Log(duplicatedObject.name + "を複製し、速度 X:" + -initialVelocity.x +"    Y:"+ initialVelocity.y + " を適用しました。");
+                    Debug.Log(duplicatedObject.name + "を複製し、速度 X:" + -initialVelocity.x + "    Y:" + initialVelocity.y + " を適用しました。");
                 }
                 else
                 {
