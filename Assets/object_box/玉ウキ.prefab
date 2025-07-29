@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2562947445579992606}
   - component: {fileID: -1307253696368187504}
   - component: {fileID: 6567680388693895104}
+  - component: {fileID: -1328689095909142119}
   m_Layer: 0
   m_Name: "\u7389\u30A6\u30AD"
   m_TagString: Bobber_player1
@@ -162,3 +163,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-1328689095909142119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577454856593819357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a1545fcf2902b44a592ce049483985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grounded: 0

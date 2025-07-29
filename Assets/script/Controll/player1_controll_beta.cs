@@ -30,6 +30,9 @@ public class player1_controll_beta : MonoBehaviour
     [Header("複製するオブジェクトのPrefab")]
     [Tooltip("複製したいオブジェクトのPrefabをここにドラッグ、ドロップしてください。Rigidbody2Dが必要です。")]
     public GameObject objectToDuplicatePrefab;
+    
+    public GameObject prefabToSpawn; // クローンする元のプレハブ
+    public Collider2D targetCollider; // 衝突を無視したい相手のコライダーをInspectorから設定    
 
     private float speed = 0.05f;
 
@@ -46,28 +49,29 @@ public class player1_controll_beta : MonoBehaviour
 
     private Vector3 left_throwPoint;
 
-    private BoxCollider boxCol;
+    // private BoxCollider boxCol;
     void Start()
     {
         float right_max_speed = right_and_left_max_speed;
         float left_max_speed = -right_and_left_max_speed;
         rb = GetComponent<Rigidbody2D>();
         player1_renderer = GetComponent<SpriteRenderer>();
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), targetCollider, true);
         isGround = can_junp_count;
-        bobber_grounded bobber_grounded = GetComponent<bobber_grounded>();
-        GameObject otherGameObject = GameObject.Find("玉ウキ");
-        if (otherGameObject != null)
-        {
-            bobber_grounded otherbobber = otherGameObject.GetComponent<bobber_grounded>();
-            if (otherbobber != null)
-            {
-                Debug.Log("ScriptB (別のゲームオブジェクト): grounded = " + otherbobber.grounded);
-            }
-            else
-            {
-                Debug.LogError("OtherGameObject に ScriptA が見つかりません。");
-            }
-        }        
+        // bobber_grounded bobber_grounded = GetComponent<bobber_grounded>();
+        // GameObject otherGameObject = GameObject.Find("玉ウキ");
+        // if (otherGameObject != null)
+        // {
+        //     bobber_grounded otherbobber = otherGameObject.GetComponent<bobber_grounded>();
+        //     if (otherbobber != null)
+        //     {
+        //         Debug.Log("ScriptB (別のゲームオブジェクト): grounded = " + otherbobber.grounded);
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("OtherGameObject に ScriptA が見つかりません。");
+        //     }
+        // }        
     }
 
     void Update()
@@ -162,6 +166,7 @@ public class player1_controll_beta : MonoBehaviour
             if (look_left == true)
             {
                 GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + right_throwPoint, Quaternion.identity);
+                Collider2D spawnedCollider = spawnedObject.GetComponent<Collider2D>();
                 already_throw = true;
                 Rigidbody2D rb2d = duplicatedObject.GetComponent<Rigidbody2D>();
                 // boxCol =GetComponent<BoxCollider>();
