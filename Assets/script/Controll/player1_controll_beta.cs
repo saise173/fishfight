@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ public class player1_controll_beta : MonoBehaviour
     [Header("複製するオブジェクトのPrefab")]
     [Tooltip("複製したいオブジェクトのPrefabをここにドラッグ、ドロップしてください。Rigidbody2Dが必要です。")]
     public GameObject objectToDuplicatePrefab;
-    
+
     public GameObject prefabToSpawn; // クローンする元のプレハブ
     public Collider2D targetCollider; // 衝突を無視したい相手のコライダーをInspectorから設定    
 
@@ -49,6 +50,8 @@ public class player1_controll_beta : MonoBehaviour
 
     private Vector3 left_throwPoint;
 
+    GameObject duplicatedObject;
+
     // private BoxCollider boxCol;
     void Start()
     {
@@ -56,7 +59,7 @@ public class player1_controll_beta : MonoBehaviour
         float left_max_speed = -right_and_left_max_speed;
         rb = GetComponent<Rigidbody2D>();
         player1_renderer = GetComponent<SpriteRenderer>();
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), targetCollider, true);
+        // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), targetCollider, true);
         isGround = can_junp_count;
         // bobber_grounded bobber_grounded = GetComponent<bobber_grounded>();
         // GameObject otherGameObject = GameObject.Find("玉ウキ");
@@ -80,6 +83,8 @@ public class player1_controll_beta : MonoBehaviour
         Vector3 position = transform.position;
         right_throwPoint = transform.Find("throw_point_right").localPosition;
         left_throwPoint = transform.Find("throw_point_left").localPosition;
+        //Debug.Log("現在のplayer1の現在位置" + position);
+        observe();
         if (Input.GetKeyDown(duplicateKey))
         {
             DuplicateObjectWithInitialVelocity();
@@ -147,7 +152,7 @@ public class player1_controll_beta : MonoBehaviour
             Destroy(collision.gameObject);
             already_throw = false;
             // 敵ヒット時の処理
-        }          
+        }
     }
     void DuplicateObjectWithInitialVelocity()
     {
@@ -165,12 +170,11 @@ public class player1_controll_beta : MonoBehaviour
             //GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, (Vector2)transform.position + spawnOffset, Quaternion.identity);
             if (look_left == true)
             {
-                GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + right_throwPoint, Quaternion.identity);
-                Collider2D spawnedCollider = spawnedObject.GetComponent<Collider2D>();
                 already_throw = true;
+                GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + right_throwPoint, Quaternion.identity);
+                Vector3 bobboer_position = duplicatedObject.transform.position;
                 Rigidbody2D rb2d = duplicatedObject.GetComponent<Rigidbody2D>();
-                // boxCol =GetComponent<BoxCollider>();
-                // boxCol.enabled = false;                
+                duplicatedObject.layer = LayerMask.NameToLayer("player1_bobber");
                 if (rb2d != null && look_left == true)
                 {
                     // 3. Rigidbody2Dのvelocity（速度）を設定する
@@ -186,11 +190,10 @@ public class player1_controll_beta : MonoBehaviour
             }
             if (look_right == true)
             {
-                GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + left_throwPoint, Quaternion.identity);
                 already_throw = true;
+                GameObject duplicatedObject = Instantiate(objectToDuplicatePrefab, transform.position + left_throwPoint, Quaternion.identity);
                 Rigidbody2D rb2d = duplicatedObject.GetComponent<Rigidbody2D>();
-                // boxCol =GetComponent<BoxCollider>();
-                // boxCol.enabled = false;          
+                duplicatedObject.layer = LayerMask.NameToLayer("player1_bobber");
                 if (rb2d != null && look_right == true)
                 {
                     // 3. Rigidbody2Dのvelocity（速度）を設定する
@@ -205,5 +208,12 @@ public class player1_controll_beta : MonoBehaviour
                 }
             }
         }
+    }
+    void observe()
+    {
+        // if (already_throw == true){
+        // Vector3 bobboer_position =duplicatedObject.transform.position;
+        // Debug.Log("玉ウキの現在地点:" + bobboer_position);
+        // }
     }
 }
